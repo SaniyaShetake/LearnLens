@@ -1,0 +1,102 @@
+section.research {
+  strong.fwl {
+    font-weight: 600;
+  }
+  .introduction {
+    font-size: 1rem;
+
+    a.research-title {
+      color: #000;
+      font-size: 1.125rem;
+      position: relative;
+
+      &:before {
+        position: absolute;
+        font-weight: 700;
+        font-family: "Font Awesome 5 Free";
+        left: -0.5rem;
+      }
+
+      &:hover {
+        &:before {
+          content: "\f0c1";
+        }
+      }
+    }
+
+    p {
+      text-align: justify;
+      text-align-last: left;
+    }
+
+    ul {
+      li {
+        text-align: justify;
+        text-align-last: left;
+      }
+    }
+  }
+  .goal {
+    font-size: 1.125rem;
+  }
+  .text {
+    text-align: justify;
+  }
+
+  figure.figure {
+    float: right;
+    width: 550px;
+    height: auto;
+    margin-bottom: 0 !important;
+  }
+
+  .figure-img {
+    margin-bottom: 0 !important;
+  }
+
+  a {
+    font-weight: 600;
+  }
+}
+
+.publications {
+  font-size: 1rem;
+
+  .title {
+    font-size: 1.125rem;
+    color: #000;
+    position: relative;
+    padding-left: 1rem;
+
+    &:before {
+      position: absolute;
+      font-weight: 700;
+      font-family: "Font Awesome 5 Free";
+      left: -0.5rem;
+    }
+
+    &:hover {
+      &:before {
+        content: "\f0c1";
+      }
+    }
+  }
+
+  p {
+    code {
+      font-size: 100%;
+      color: inherit;
+    }
+
+    text-align: justify;
+    text-align-last: left;
+  }
+  padding-bottom: 1.5rem;
+
+  ol {
+    li {
+      text-align: justify;
+      text-align-last: left;
+    }
+  }
+}

@@ -1,0 +1,121 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: "24"
+
+jobs:
+  test:
+    name: Backend tests + client build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      mongo:
+        image: mongo:7
+        # The test suites expect MongoDB on 127.0.0.1:27018 (tests/setup/env.js, e2e/tests/constants.ts)
+        ports:
+          - 27018:27017
+        options: >-
+          --health-cmd "mongosh --quiet --eval 'db.runCommand({ ping: 1 }).ok'"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: yarn
+          cache-dependency-path: |
+            yarn.lock
+            client/yarn.lock
+
+      - name: Install backend dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Install client dependencies
+        run: yarn install --frozen-lockfile
+        working-directory: client
+
+      - name: Backend tests (jest)
+        # tests/setup/env.js sets NODE_ENV=test, the test DB URI and test secrets
+        run: yarn test
+
+      - name: Build client (vite)
+        run: yarn build
+        working-directory: client
+
+      - name: Upload client build
+        uses: actions/upload-artifact@v4
+        with:
+          name: client-build
+          path: client/build
+          retention-days: 3
+
+  e2e:
+    name: End-to-end (Playwright, chromium)
+    runs-on: ubuntu-latest
+    needs: test
+    timeout-minutes: 30
+    services:
+      mongo:
+        image: mongo:7
+        ports:
+          - 27018:27017
+        options: >-
+          --health-cmd "mongosh --quiet --eval 'db.runCommand({ ping: 1 }).ok'"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: yarn
+          cache-dependency-path: |
+            yarn.lock
+            client/yarn.lock
+
+      - name: Install backend dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Install client dependencies
+        run: yarn install --frozen-lockfile
+        working-directory: client
+
+      - name: Install e2e dependencies
+        run: npm ci
+        working-directory: e2e
+
+      - name: Install Playwright chromium
+        run: npx playwright install --with-deps chromium
+        working-directory: e2e
+
+      - name: Run Playwright
+        # scripts/start-server.sh builds the client (E2E_BUILD=1) and starts the server with the
+        # Node on PATH (no fnm in CI); playwright.config.ts supplies the server env.
+        run: npx playwright test --project=chromium --workers=1
+        working-directory: e2e
+        env:
+          E2E_BUILD: "1"
+
+      - name: Upload Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            e2e/playwright-report
+            e2e/test-results
+            e2e/.server.log
+          retention-days: 7

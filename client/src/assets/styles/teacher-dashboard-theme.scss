@@ -1,0 +1,193 @@
+@import "custom_colors.scss";
+
+// Colour theme for the teacher lesson dashboard, matched to the rest of the app (My Courses and the
+// course page use the same greys, white 12px cards and #7c3aed violet; see components/Courses.jsx).
+// Colours, borders, radii and shadows only: the single-screen layout, grid and all sizes are defined
+// in teacher-dashboard.scss and stay untouched. Everything is scoped to this page.
+
+$td-page: #f8f9fa;
+$td-card: #ffffff;
+$td-sunken: #f9fafb;
+$td-band: #fafafa;
+$td-line: #e5e7eb;
+$td-line-soft: #f3f4f6;
+$td-input-line: #d1d5db;
+$td-ink: #111827;
+$td-title: #374151;
+$td-muted: #6b7280;
+$td-faint: #9ca3af;
+$td-brand: #7c3aed;
+$td-brand-hover: #6d28d9;
+$td-brand-soft: #ede9fe;
+$td-brand-hover-bg: #f5f3ff;
+$td-focus: 0 0 0 3px rgba(124, 58, 237, 0.1);
+$td-radius: 12px;
+
+// Page behind the panels
+main.main-expanded:has(.teacher-dashboard) {
+  background: $td-page;
+}
+
+.teacher-dashboard {
+  background: $td-page;
+  color: $td-ink;
+
+  // ── Panels: white cards like the rest of the app ─────────────────────────
+  .td-child,
+  .tc-panel {
+    background: $td-card;
+    border: 1px solid $td-line;
+    border-radius: $td-radius;
+    box-shadow: none;
+  }
+  .td-bottom { background: transparent; }
+
+  // Panel titles
+  .child-caption,
+  .tc-panel-title,
+  .td-history .bookmark-header .heading {
+    color: $td-title;
+    font-weight: 600;
+  }
+  .child-caption { padding-top: 0.2rem; padding-left: 0.45rem; }
+  .tc-panel-info { color: $td-faint; &:hover { color: $td-brand; } }
+
+  // Labels and secondary text
+  .td-input-label,
+  .venn-caption,
+  .nd-prt-info,
+  .toggle-percentage {
+    color: $td-muted;
+  }
+
+  // Dividers inside panels
+  .td-input,
+  .td-buttons { border-right-color: $td-line-soft; }
+  .td-venn-content { border-bottom-color: $td-line-soft; }
+  .td-venn-left { border-right-color: $td-line-soft; }
+
+  // Switches ("View 1 / View 2", "Students / Clicks", "Video order / Hardest first")
+  .custom-control-input:checked ~ .custom-control-label::before {
+    background-color: $td-brand;
+    border-color: $td-brand;
+  }
+  .custom-control-input:focus ~ .custom-control-label::before { box-shadow: $td-focus; }
+  .custom-control-label::before { border-color: $td-input-line; }
+
+  // ── Range pills ("14 – 16 min") and slider handles ──────────────────────
+  .range-meter .circle .range,
+  .nd-slider-thumb {
+    background: $td-brand;
+    color: #fff;
+  }
+  .nd-slider-thumb {
+    border: 2px solid #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    outline: none;
+  }
+  .range-meter .circle .text { color: $td-muted; }
+  .range-meter .circle-dash::after { background: $td-faint; }
+
+  // ── DEBE toggle chips ───────────────────────────────────────────────────
+  .nd-btn {
+    border-radius: 6px;
+    .check { border-radius: 4px; background: #fff; }
+    .title .text { color: $td-title; }
+    &:active,
+    &:active .check { background-color: $td-brand-hover-bg; }
+  }
+
+  // ── Buttons and inputs (same as "Create" / "New Lesson") ────────────────
+  .nd-btn-save {
+    background: $td-brand;
+    color: #fff;
+    border: 0;
+    border-radius: 8px;
+    font-weight: 600;
+    &:hover:not(:disabled) { background: $td-brand-hover; color: #fff; }
+    &:focus { box-shadow: $td-focus; }
+    &:disabled { background: $td-line; color: $td-faint; opacity: 1; }
+  }
+
+  .bookmark-topic.form-control {
+    border-color: $td-input-line;
+    border-radius: 8px;
+    color: $td-ink;
+    &::placeholder { color: $td-faint; }
+    &:focus { border-color: $td-brand; box-shadow: $td-focus; }
+  }
+
+  // ── Bookmarks list (rows like the course list) ──────────────────────────
+  .td-history {
+    background: $td-band;
+    border-left: 1px solid $td-line-soft;
+    border-radius: 0 $td-radius $td-radius 0;
+    .bookmark-header { border-bottom-color: $td-line; }
+    .item {
+      border-radius: 8px;
+      transition: background-color 0.12s ease;
+      &:not(:last-child) { border-bottom-color: $td-line-soft; }
+      &:hover { background: $td-brand-hover-bg; }
+      &.active { background: $td-brand-soft; }
+      .bm-topic,
+      .bm-types,
+      .bm-delete { border-left-color: $td-line-soft; }
+      .bm-topic { color: $td-ink; font-weight: 500; }
+      .bm-delete {
+        color: $td-faint;
+        &:hover { color: #dc2626; }
+      }
+      .badge {
+        border-radius: 12px;
+        font-weight: 600;
+        color: #fff;
+        &.easy { color: #5c3b00; }
+        &.time { background: $td-brand; }
+      }
+    }
+  }
+
+  // ── Participation, reaction charts, reasons ─────────────────────────────
+  // Keep the Venn circles clear of the panel title and the "View 1 / View 2" switch.
+  .td-venn-left,
+  .td-venn-right { padding-top: 1.9em; }
+  .tspan-gauge { fill: $td-ink; }
+  // DEBE Reasons (.detailed-chart*) is intentionally left exactly as designed.
+
+  // ── Quiz Analysis / Clickstream: same grey text scale ───────────────────
+  .tc-panel {
+    --gray-12: #{$td-ink};
+    --gray-11: #{$td-title};
+    --gray-10: #{$td-muted};
+    --gray-7: #{$td-faint};
+    // The app's violet scale (centred on #7c3aed) instead of the older pinker purples
+    --violet-1: #f5f3ff;
+    --violet-2: #ede9fe;
+    --violet-3: #ede9fe;
+    --violet-4: #ddd6fe;
+    --violet-5: #c4b5fd;
+    --violet-6: #c4b5fd;
+    --violet-8: #a78bfa;
+    --violet-9: #7c3aed;
+    --violet-10: #6d28d9;
+    --violet-11: #5b21b6;
+    .tc-stat + .tc-stat { border-left-color: $td-line; }
+  }
+
+  // Locked (basic plan) overlay keeps the panel's rounded corners
+  .td-upgrade { border-radius: $td-radius; }
+}
+
+// "Take tour" button in this page's nav bar (the nav itself keeps the app's #3b0764)
+.header-minified .nav-tour-btn {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.6);
+  border-radius: 999px;
+  &:hover,
+  &:focus {
+    color: #3b0764;
+    background: #fff;
+    border-color: #fff;
+    box-shadow: none;
+  }
+}

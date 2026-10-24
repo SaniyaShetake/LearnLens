@@ -1,0 +1,49 @@
+@import "custom.scss";
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+.not-found-container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .row {
+    width: 100%;
+  }
+
+  .nf-logo {
+    text-align: center;
+    img {
+      max-height: 250px;
+    }
+  }
+
+  .nf-text {
+    color: $dark;
+    @include media-breakpoint-up(sm) {
+      font-size: 1.25rem;
+    }
+    @include media-breakpoint-up(md) {
+      font-size: 1.5rem;
+    }
+    @include media-breakpoint-up(lg) {
+      font-size: 1.75rem;
+    }
+    @include media-breakpoint-up(xl) {
+      font-size: 2rem;
+    }
+  }
+
+  .nf-back {
+    margin-top: 0.5rem;
+  }
+}
+
+.icon-by {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.7rem;
+}

@@ -1,0 +1,17 @@
+{
+  "name": "tcherly-e2e",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Black-box end-to-end tests for Tcherly (Playwright)",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "@types/node": "^20.0.0",
+    "bcryptjs": "^2.4.3",
+    "mongodb": "^6.21.0"
+  }
+}

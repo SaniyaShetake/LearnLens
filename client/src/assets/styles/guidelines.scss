@@ -1,0 +1,29 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+@import "node_modules/bootstrap/scss/media";
+
+$navbarHeight: 56px;
+
+section.guidelines {
+  height: calc(100vh - #{$navbarHeight});
+
+  .loader-guidelines {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.25rem;
+  }
+
+  .reveal .slide-4-img {
+    max-width: 105%;
+    @include media-breakpoint-down(lg) {
+      max-width: 95%;
+    }
+    @include media-breakpoint-up(xl) {
+      max-width: 115%;
+    }
+  }
+}

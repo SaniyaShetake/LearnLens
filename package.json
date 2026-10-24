@@ -1,0 +1,62 @@
+{
+  "name": "debe-node",
+  "version": "0.0.1",
+  "description": "DEBE Online Feedback Tool",
+  "main": "server.js",
+  "author": "localhoax",
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "node": ">=24"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "connect-mongo": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "cross-env": "^10.1.0",
+    "debug": "^4.4.3",
+    "dotenv": "^18.0.4",
+    "exceljs": "^4.4.0",
+    "express": "^4.22.1",
+    "express-rate-limit": "^8.7.0",
+    "express-session": "^1.19.0",
+    "form-data": "^4.0.6",
+    "hbs": "^4.3.1",
+    "http-errors": "^2.0.1",
+    "jsonwebtoken": "^9.0.3",
+    "mailgun.js": "^14.0.1",
+    "mongodb": "~6.20.0",
+    "mongoose": "^8.24.4",
+    "morgan": "^1.10.1",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1",
+    "passport-local": "^1.0.0",
+    "serve-favicon": "^2.5.1"
+  },
+  "scripts": {
+    "start": "cross-env NODE_ENV=\"production\" node server.js",
+    "build": "cd client && yarn build",
+    "serve": "yarn build && yarn start",
+    "deploy": "pm2 deploy production",
+    "dev:s": "nodemon server.js",
+    "dev:c": "cd client && yarn dev",
+    "dev": "concurrently \"yarn dev:c\" \"yarn dev:s\"",
+    "install:c": "cd client && yarn",
+    "generate": "node data/generate.js",
+    "seed:demo": "node data/seed-demo.js",
+    "migrate:slugs": "node scripts/migrate-lesson-slugs.js",
+    "test": "jest --runInBand"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.5",
+    "jest": "^30.5.2",
+    "nodemon": "^3.1.14",
+    "pm2": "^7.0.4",
+    "supertest": "^7.3.0"
+  },
+  "resolutions": {
+    "exceljs/uuid": "^11.1.1",
+    "pm2/js-yaml": "^4.3.2"
+  }
+}

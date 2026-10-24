@@ -1,0 +1,20 @@
+LearnLens — Focused Quiz Analytics Dashboard
+
+WHAT CHANGED
+- Replaced the old crowded teacher dashboard arrangement with a quiz-first Learning Outcomes dashboard.
+- Removed the video/DEBE chart grid from this dashboard view so the quiz analysis gets the focus.
+- Kept the existing QuizAnalysisPanel data fetch and calculations. It reports attempted/answered students, correct answers, percentages, question-level verdicts, and lets teachers sort by hardest question.
+- Kept the existing AI Doubt Solver header route already present in the project.
+- Added responsive styling for the new dashboard.
+
+HOW TO USE
+1. Extract this ZIP into a NEW folder; keep your current project as a backup.
+2. Open the extracted tcherly-main folder in VS Code.
+3. Use your existing .env configuration locally (do not share secrets). If needed, create .env from .env.example and set secure SESSION_SECRET and JWT_SECRET values.
+4. Ensure MongoDB is running.
+5. In the root terminal, run: yarn
+6. In the root terminal, run: yarn dev:s
+7. In a second terminal, run: yarn dev:c (if this script exists in package.json) or use the project's documented client start command.
+
+NOTE
+The dashboard uses real data from the existing /lessons/:id/quiz-analysis API. Question counts and accuracy will only be populated if students have submitted answers. The code changes have not been tested against your local MongoDB data or backend configuration.

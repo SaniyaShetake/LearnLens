@@ -1,0 +1,23 @@
+LEARNLENS - STUDENT COURSE DISCOVERY UPDATE
+
+What changed:
+- Student dashboard now has a "Discover your subjects" module.
+- It lists course/subject names, existing six-character course codes, lesson counts, and student counts.
+- Students can copy a course code or click "Join this subject" to place the code into the join form, then press Join.
+- Already enrolled subjects are marked as joined.
+- Added authenticated GET /api/student/available-courses endpoint. It returns only course discovery information needed by students.
+- Existing manual course-code join remains available.
+
+How to use:
+1. Extract this ZIP into a new folder (keep your current folder as backup).
+2. Open the extracted tcherly-main folder in VS Code.
+3. Make sure your .env exists and has SESSION_SECRET and JWT_SECRET values at least 32 characters long.
+4. Ensure MongoDB is running.
+5. In the project root terminal run: yarn
+6. In the project root terminal run: yarn install:c (if used by this project setup)
+7. Start both frontend/backend using the existing project scripts, or use separate terminals: yarn dev:s and yarn dev:c if those scripts are defined in package.json.
+8. Sign in as a student and open Student Dashboard. Available courses appear under "Discover your subjects".
+
+Notes:
+- A course appears here after a teacher creates it in LearnLens. The displayed code is the course's existing join_code; it is not a new random code generated on every student visit.
+- This source update has not been run against your local MongoDB/database, so confirm it in your own environment.
